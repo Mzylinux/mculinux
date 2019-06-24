@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.kedacom.kstp</groupId>
+        <artifactId>IntervalSpeedDetection</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>IntervalSpeedDetection-flyway</artifactId>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <flyway-maven-plugin.version>5.1.4</flyway-maven-plugin.version>
+        <db.driver>com.mysql.jdbc.Driver</db.driver>
+        <db.dropFirst>false</db.dropFirst>
+        <db.url>jdbc:mysql://10.65.3.5:3306/kstp_direct_dispatch?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false</db.url>
+        <db.username>kstp_direct_dispatch_write</db.username>
+        <db.password>7c9nzUN84OhhsK&amp;+</db.password>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flyway-maven-plugin.version}</version>
+                <configuration>
+                    <table>schema_version</table>
+                    <validateOnMigrate>true</validateOnMigrate>
+                    <user>${db.username}</user>
+                    <password>${db.password}</password>
+                    <driver>${db.driver}</driver>
+                    <url>${db.url}</url>
+                    <locations>
+                        <location>db</location>
+                    </locations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>migrate</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>migrate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
